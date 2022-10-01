@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Vite + TS</title>
+</head>
+<body>
+<div id="app"></div>
+<script type="module" src="/src/index.ts"></script>
+<script id="vertex_shader" type="x-shader/x-vertex">
+
+varying vec3 vNormal;
+
+void main() {
+
+	vNormal = normal;
+
+	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+}
+
+
+</script>
+
+<script id="fragment_shader" type="x-shader/x-fragment">
+
+uniform sampler2D tex;
+
+varying vec3 vNormal;
+
+void main() {
+
+	vec2 uv = normalize( vNormal ).xy * 0.5 + 0.5;
+
+	vec3 color = texture2D( tex, uv ).rgb;
+
+	if ( vNormal.z < - 0.85 ) color = vec3( 0.777, 0.74, 0.74 ); // back of eye
+
+	gl_FragColor = vec4( color, 1.0 );
+
+}
+
+
+</script>
+
+</body>
+</html>
