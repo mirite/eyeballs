@@ -11,7 +11,7 @@ const uniforms = {
 }
 const material = new THREE.ShaderMaterial({
 	uniforms: uniforms,
-	wireframe: true,
+	wireframe: !true,
 	vertexShader,
 	fragmentShader,
 });
