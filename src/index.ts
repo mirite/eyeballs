@@ -4,12 +4,12 @@ import {createCamera} from "./camera";
 import {createRenderer} from "./renderer";
 import {createLighting} from "./light";
 import {addEyeball} from "./eyes";
-import {followCursor, setFromCursor} from "./cursor";
+import {setFromCursor} from "./cursor";
+import {animation} from "./animation";
 
 const camera = createCamera();
 const scene = new THREE.Scene();
 const renderer = createRenderer();
-renderer.setAnimationLoop(animation);
 document.body.appendChild(renderer.domElement);
 
 const backgroundTexture = new THREE.TextureLoader().load("/background.jpg");
@@ -22,15 +22,8 @@ const eyeballs: Mesh[] = [];
 const light = createLighting();
 scene.add(light);
 scene.background = backgroundTexture;
+renderer.setAnimationLoop(() => animation(eyeballs, renderer, scene, camera));
 
-function animation() {
-
-	for (const eyeball of eyeballs) {
-		followCursor(eyeball);
-
-	}
-	renderer.render(scene, camera);
-}
 
 window.addEventListener('mousemove', (e) => {
 	setFromCursor(e);
