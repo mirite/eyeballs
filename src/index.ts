@@ -14,7 +14,7 @@ document.body.appendChild(renderer.domElement);
 const backgroundTexture = new THREE.TextureLoader().load("/background.jpg");
 
 const eyeballs: Mesh[] = [];
-[[5, 5], [10, 10], [15, 15], [2, 2]].forEach(([x, y]) => {
+[[5, 5], [5, 10], [15, 5], [15, 10]].forEach(([x, y]) => {
 	eyeballs.push(addEyeball(x, y, scene));
 })
 
@@ -22,12 +22,11 @@ const light = createLighting();
 scene.add(light);
 scene.background = backgroundTexture;
 let cursor: Vector3;
-const pupilCorrection = new THREE.Euler(0.2, 0.2, 0);
+
 function animation() {
 	if (cursor) {
 		for (const eyeball of eyeballs) {
 			followCursor(eyeball);
-			//eyeball.rotation.set(pupilCorrection.x, pupilCorrection.y, pupilCorrection.z, pupilCorrection.order);
 		}
 	}
 	renderer.render(scene, camera);
@@ -36,10 +35,19 @@ function animation() {
 
 function followCursor(mesh: Mesh) {
 	mesh.lookAt(cursor.x, cursor.y, cursor.z);
+	if (mesh.rotation.x > ( Math.PI / 4)) {
+		mesh.rotation.x -= 0.4;
+	}
+	if (mesh.rotation.x < -1*(Math.PI / 4)) {
+		mesh.rotation.x += 0.4;
+	}
+
+	console.log(mesh.rotation.y)
 	//mesh.rotation.setFromQuaternion(qrot)
 }
 
 function cursorToViewport(value: number, scale: number): number {
+
 	const originInCentre = value - (0.5 * scale);
 	return originInCentre;
 }
@@ -48,6 +56,5 @@ window.addEventListener('mousemove', (e) => {
 	const {x, y} = e;
 	const scaledX = cursorToViewport(x, window.innerWidth);
 	const scaledY = cursorToViewport(y, window.innerHeight) * -1;
-	console.log(scaledX, scaledY);
-	cursor = new Vector3( scaledX, scaledY, 10);
+	cursor = new Vector3(scaledX, scaledY, 35);
 });
