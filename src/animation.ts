@@ -1,5 +1,5 @@
 import { followCursor } from './cursor';
-import { Camera, Mesh, Renderer, Scene } from 'three';
+import type { Camera, Mesh, Renderer, Scene } from 'three';
 
 export function animation(
 	eyeballs: Mesh[],

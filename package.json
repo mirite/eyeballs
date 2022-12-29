@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint ./src/**/*.ts --fix && eslint ./src/**/*.tsx --fix"
+    "lint": "eslint ./src/**/*.ts --fix"
   },
   "devDependencies": {
     "@wordpress/eslint-plugin": "^13.7.0",
