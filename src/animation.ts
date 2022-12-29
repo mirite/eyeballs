@@ -1,11 +1,14 @@
-import {followCursor} from "./cursor";
-import {Camera, Mesh, Renderer, Scene} from "three";
+import { followCursor } from './cursor';
+import { Camera, Mesh, Renderer, Scene } from 'three';
 
-export function animation(eyeballs: Mesh[], renderer: Renderer, scene: Scene, camera: Camera) {
-
+export function animation(
+	eyeballs: Mesh[],
+	renderer: Renderer,
+	scene: Scene,
+	camera: Camera
+) {
 	for (const eyeball of eyeballs) {
 		followCursor(eyeball);
-
 	}
 	renderer.render(scene, camera);
 }

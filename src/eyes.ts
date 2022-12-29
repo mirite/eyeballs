@@ -1,16 +1,18 @@
-import * as THREE from "three";
+import * as THREE from 'three';
 
 const geometry = new THREE.SphereGeometry(2);
-const eyeTexture = new THREE.TextureLoader().load("/map.jpg");
-const vertexShader = document.getElementById( 'vertex_shader' )!.textContent as string;
-const fragmentShader = document.getElementById( 'fragment_shader' )!.textContent as string;
+const eyeTexture = new THREE.TextureLoader().load('/map.jpg');
+const vertexShader = document.getElementById('vertex_shader')!
+	.textContent as string;
+const fragmentShader = document.getElementById('fragment_shader')!
+	.textContent as string;
 const uniforms = {
 	tex: {
-		value: eyeTexture
-	}
-}
+		value: eyeTexture,
+	},
+};
 const material = new THREE.ShaderMaterial({
-	uniforms: uniforms,
+	uniforms,
 	vertexShader,
 	fragmentShader,
 });
